@@ -7,23 +7,28 @@ const { SubMenu } = Menu;
 
 
 export  class Contents extends Component {
+
   render() {
-      const {content:{columns,data}} = this.props
-      // console.log('@@@',this.props)
+      const {content:{columns,data,flag}} = this.props
+      console.log('@@@',this.props)
     return (
       <div>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={flag?data:data.filter(i=>{
+          return i.score>=60
+        })} />
       </div>
     )
   }
 }
 
 export class Footers extends Component {
+
     render() {
+      const {set} = this.props
+      console.log("first",this.props)
       return (
         <div>
-          <Switch checkedChildren="查看通过" unCheckedChildren="查看通过" />
-          <Switch checkedChildren="查看全部" unCheckedChildren="查看全部" defaultChecked />
+          <Switch checkedChildren="查看全部" unCheckedChildren="查看通过" defaultChecked onChange={set} />
         </div>
       )
     }
@@ -31,6 +36,9 @@ export class Footers extends Component {
 
 export class Headers extends Component {
   
+  btnClick=(e)=>{
+    console.log("eeeee",e.target)
+  }
   render() {
     const {btns} = this.props
     console.log("@@@",btns)
@@ -41,7 +49,7 @@ export class Headers extends Component {
             <Input style={{width:'300px'}} addonBefore='科目' />
             {btns.map(i=>{
             if(i.btnType==='out')
-            return <Button type='primary' style={{marginLeft:"5px"}}>{i.btnValue}</Button>
+            return <Button type='primary' style={{marginLeft:"5px"}} onClick={this.btnClick}>{i.btnValue}</Button>
           })}
           </Form.Item>
           

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Divider,Layout,Tag} from 'antd'
 import {Headers,Footers,Siders,Contents} from './components'
+import { data } from 'browserslist'
 const {Header,Sider,Content,Footer} = Layout 
 
 export default class Myapp extends Component {
@@ -61,8 +62,18 @@ export default class Myapp extends Component {
     btns:[
         {btnType:'out',btnId:1,btnValue:'搜索'},
         {btnType:'out',btnId:2,btnValue:'重置'},
-    ]
+    ],
+    flag:true
 }
+
+    setContent = (checked)=>{
+            if(!checked){
+                this.setState({flag:false})
+             }
+             else{
+                this.setState({flag:true})
+             }
+    }
   render() {
     const {btns,...content} = this.state
     return (
@@ -72,8 +83,8 @@ export default class Myapp extends Component {
                 <Sider style={{backgroundColor:'white'}}><Siders /></Sider>
                 <Layout>
                     <Header style={{backgroundColor:'white'}}><Headers btns={btns} /></Header>
-                    <Content ><Contents content={content} /></Content>
-                    <Footer><Footers /></Footer>
+                    <Content ><Contents content={content}/></Content>
+                    <Footer><Footers set ={this.setContent}/></Footer>
                 </Layout>
             </Layout>
         </>

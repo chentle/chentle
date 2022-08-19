@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [2,5,1,8,55,3,7,80,65]
+        // console.log("valueOf",Array.valueOf().apply(arr))  //[]
+        // console.log("toString--",[].toString(),"--")  //""
+        // 冒泡排序
+        function bubbleSort(arr){
+            var len = arr.length;
+            for(var i = 0;i < len-1;i++){
+                for(var j = 0; j < len-1-i;j++){
+                    if(arr[j]>arr[j+1]){
+                        var tem = arr[j]
+                        arr[j]=arr[j+1]
+                        arr[j+1]=tem
+                    }
+                }
+            }
+        }
+        // 快速排序
+        function quickSort(arr,start,end){
+            if(start<end){
+                let example = arr[start]
+                let i = start, j = end
+                while(i<j){
+                    while(i < j&&arr[j]>example){
+                        j--
+                    }
+                    if(i < j){
+                        arr[i]=arr[j]
+                        console.log(arr)
+                        i++
+                    }
+                    while(i < j&&arr[i]<example){
+                        i++
+                    }
+                    if(i < j){
+                        arr[j]=arr[i]
+                        console.log(arr)
+                        j--
+                    }
+                }
+                arr[i] = example
+                quickSort(arr,start,i-1)
+                quickSort(arr,i+1,end)
+            }
+        }
+        // 插入排序
+        function insertSort(arr){
+            if(!arr) return
+            let len = arr.length
+            var pre,cur,timer=0
+            for(let i=0;i<len;i++){
+                pre = i-1
+                cur = arr[i]
+                while(cur<arr[pre]&&pre>=0){
+                    arr[pre+1] = arr[pre]
+                    pre--
+                }
+                arr[pre+1] = cur
+            }
+            return arr
+        }
+        console.log("before",arr)
+        // bubbleSort(arr)
+        // console.log("after冒泡",arr)
+        // quickSort(arr,0,arr.length-1)
+        // console.log("after快排",arr)
+        insertSort(arr)
+        console.log("after插入",arr)
+    </script>
+</body>
+</html>
